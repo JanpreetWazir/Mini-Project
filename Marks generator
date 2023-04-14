@@ -1,0 +1,38 @@
+Sub CompareColumnsMultiple()
+
+    'Declare variables
+    Dim lastRow As Long
+    Dim col1 As Range, col2 As Range, col3 As Range
+    Dim i As Long, j As Long
+    Dim lastColumn As Long
+    lastColumn = ActiveSheet.Cells(1, Columns.Count).End(xlToLeft).Column
+
+    
+    'Loop through each set of 3 columns
+    For j = 14 To lastColumn Step 3
+        'Set column ranges for this set of 3 columns
+        Set col1 = Range(Cells(1, j), Cells(100, j))
+        Set col2 = Range(Cells(1, j + 2), Cells(100, j + 2))
+        Set col3 = Range(Cells(1, j + 1), Cells(100, j + 1))
+        
+        'Get the last row of data in column 1
+        lastRow = col1.Cells(Rows.Count, 1).End(xlUp).Row
+        
+        'Loop through each row and compare the values
+        For i = 1 To lastRow
+            If col1.Cells(i, 1).Value = "1.00 / 1" And col2.Cells(i, 1).Value = 1 Then
+                col3.Cells(i, 1).Value = 0.5
+            ElseIf col1.Cells(i, 1).Value = "1.00 / 1" And col2.Cells(i, 1).Value = 2 Then
+                col3.Cells(i, 1).Value = 0.75
+            ElseIf col1.Cells(i, 1).Value = "1.00 / 1" And col2.Cells(i, 1).Value = 3 Then
+                col3.Cells(i, 1).Value = 1
+            ElseIf col1.Cells(i, 1).Value = "0.00 / 1" And col2.Cells(i, 1).Value = 1 Then
+                col3.Cells(i, 1).Value = 0
+            ElseIf col1.Cells(i, 1).Value = "0.00 / 1" And col2.Cells(i, 1).Value = 2 Then
+                col3.Cells(i, 1).Value = "-0.25"
+            ElseIf col1.Cells(i, 1).Value = "0.00 / 1" And col2.Cells(i, 1).Value = 3 Then
+                col3.Cells(i, 1).Value = "-0.5"
+            End If
+        Next i
+        Next j
+        End Sub
