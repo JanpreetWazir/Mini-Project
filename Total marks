@@ -1,0 +1,25 @@
+Sub ColumnComparison()
+
+    Dim lastRow As Long
+    Dim lastCol As Long
+    Dim sum As Double
+    Dim i As Long
+    Dim j As Long
+    
+    'Find the last row and column in the worksheet
+    lastRow = Cells(Rows.Count, 1).End(xlUp).Row
+    lastCol = Cells(1, Columns.Count).End(xlToLeft).Column
+    
+    'Loop through every 6th column, starting from column 15
+    For i = 15 To lastCol Step 5
+        'Loop through every row in the current column
+        For j = 2 To lastRow
+            'Calculate the sum of the current column
+            sum = Application.WorksheetFunction.sum(Range(Cells(j, i), Cells(lastRow, i)))
+            Cells(j, lastCol) = sum
+        Next j
+    Next i
+    
+End Sub
+
+
